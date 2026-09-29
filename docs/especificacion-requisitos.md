@@ -1,21 +1,14 @@
 # Especificación de requisitos
 
-> **Plantilla del curso · Ingeniería de Software I · SIS3407**
-> Copia este archivo a tu repositorio como `docs/especificacion-requisitos.md`, borra las instrucciones en cursiva y los ejemplos, y escribe tu contenido. Las reglas de nomenclatura y redacción están en la Guía de redacción de requisitos. Se entrega en la semana 8 junto con el prototipo.
-
-> **Nota de esta versión:** Por indicación del autor, se conservan las instrucciones y los ejemplos de la plantilla. Los ejemplos se identifican como material didáctico y sus identificadores no pertenecen al catálogo de AwaLume. Las fichas vacías de ejemplo también se conservan. La entrevista de elicitación y la revisión de la dupla siguen pendientes; este documento no afirma que hayan ocurrido.
-
 **Sistema:** AwaLume
 
 **Autor:** Marco Villegas Xanthakis
 
-**Versión:** 0.2
+**Versión:** 0.3
 
-**Fecha de la última actualización:** 2026-09-22
+**Fecha de la última actualización:** 2026-09-29
 
 ## 1. Propósito y alcance
-
-*Para qué existe este documento y a quién va dirigido. El alcance se retoma de la Visión del producto, no se reinventa. Si cambió, corrígelo también allá.*
 
 **Propósito del documento:** Especificar los comportamientos y las condiciones de calidad que se comprobarán en AwaLume. Está dirigido al responsable del producto, al equipo de desarrollo y pruebas, a la dupla revisora y a los usuarios que participen en la validación. Contiene 22 requisitos funcionales y 10 no funcionales; describen objetivos de aceptación, no una declaración de que todos estén implementados o probados.
 
@@ -29,36 +22,26 @@
 
 | Clave | Fuente | Uso y estado |
 |---|---|---|
-| DOC-VIS | [Visión del producto](vision-del-producto.md), apartados 1 a 4 | Documento del proyecto revisado el 2026-09-17; base del alcance y de las reglas de negocio. |
-| DOC-APP | [README de la aplicación](../awalume_app/README.md), funciones implementadas | Evidencia documental de los flujos y pantallas existentes, revisada el 2026-09-17. |
-| DOC-FW | [README del dispositivo](../firmware/AwaLume_AWS_MQTT/README.md), comportamiento local, reinicios y calibración | Evidencia documental de las restricciones físicas y del control local, revisada el 2026-09-17. |
-| DOC-API | [README del servicio remoto](../aws/README.md), asociación, comandos, historial y calibración | Evidencia documental de reglas de acceso, confirmación y vigencia, revisada el 2026-09-17. |
-| SUP | Supuesto propio o meta propuesta en esta versión | Requiere validación con el responsable y los usuarios; no se presenta como confirmación del cliente. |
-
-La estructura procede de **plantilla_especificacion_requisitos.pdf**, pp. 1-3. La nomenclatura, las fichas y la distinción entre origen confirmado y supuesto siguen **guia_requisitos.pdf**, pp. 1-3. La separación entre funciones y cualidades comprobables sigue **Requisitos funcionales y no funcionales · SIS3407.pdf**, pp. 1-6. Los tres son materiales del curso SIS3407 proporcionados para esta elaboración; sus ejercicios se usan como referencia y no como evidencia de entrevistas realizadas.
-
-Los identificadores de AwaLume son permanentes y no se reutilizan. Las prioridades se interpretan así: **imprescindible**, necesario para protección, acceso o uso básico; **importante**, necesario para una operación completa y comprensible; **deseable**, mejora que puede posponerse. Las prioridades de esta primera versión son una propuesta del análisis, pendiente de validación con usuarios.
+| DOC-VIS | [Visión del producto](vision-del-producto.md) | Documento del proyecto revisado el 2026-09-29; base del alcance y de las reglas de negocio. |
+| DOC-GUION | [Guión de entrevista](guion-entrevista.md) | Entrevista realizada a la dupla para entender mejor al usuario, revisada el 2026-09-29. |
+| DOC-DGM-CU | [Diagrama casos de uso](/diagramas/casos-de-uso.png) | Diagrama visual de los casos de uso documentados, generado el 2026-09-29. |
 
 ## 2. Usuarios y su contexto
-
-*Se enriquece con lo que salga de la entrevista de elicitación. Si algo cambió respecto a la Visión del producto, anótalo.*
 
 | Usuario | Qué hace hoy sin el sistema | Qué espera del sistema |
 |---|---|---|
 | Propietario / dueño de casa | Se supone que revisa recibos o el medidor y cierra manualmente una llave cuando descubre una pérdida. La visión menciona alternativas industriales complejas y caras, pero no documenta una entrevista sobre su rutina. | Conocer el consumo de su vivienda y limitar pérdidas aunque no tenga el teléfono a mano. La protección es su necesidad principal. |
 | Arrendador / dueño de departamentos | Se supone que compara consumos o recibos de sus inmuebles y solicita revisiones cuando detecta un gasto elevado; falta confirmar cómo lo hace y quién tiene acceso a las instalaciones. | Consultar varias instalaciones desde una cuenta y comparar sus consumos. Solo podrá distinguir departamentos si cada uno dispone de su propio punto de medición. |
 
-Los perfiles se conservan de DOC-VIS. El contexto de trabajo actual se marca como SUP hasta realizar la entrevista. El instalador es un participante de apoyo en la instalación y calibración; esta versión no inventa una cuenta especial ni permisos exclusivos para ese rol.
-
 **Conflictos identificados entre usuarios:**
 
-- **Ubicación y protección:** DOC-VIS identifica que algunos usuarios priorizan conservar la presión instalando antes de la cisterna, mientras otros prefieren un cierre que reduzca más inmediatamente la pérdida dentro de la vivienda. Se conserva la ubicación descrita en la visión y se explicita su límite de cobertura.
-- **Límites compartidos:** Como supuesto por validar, un arrendador podría preferir un límite bajo y otro usuario de la misma instalación necesitar más agua. DOC-VIS admite varias cuentas por dispositivo; todas actúan sobre la misma válvula y los mismos límites. No existen cuotas independientes por cuenta en este alcance.
-- **Nombres personales:** Dos cuentas pueden querer identificar el mismo dispositivo con nombres distintos. DOC-VIS resuelve este conflicto con alias independientes por cuenta y desasociación individual.
-
-**Pendientes para la entrevista:** Confirmar las rutinas anteriores, quién define los límites compartidos, las prioridades y las metas SUP de rendimiento y usabilidad. También debe precisarse la regla 5 de DOC-VIS: su frase sobre no enviar el token en claro a la nube difiere de DOC-API, donde la app lo presenta por un canal protegido para validar la asociación y el servicio conserva únicamente su resumen. Esta especificación exige prueba local de acceso y ausencia de secretos en bitácoras; no prescribe el formato de ese intercambio ni da la discrepancia por resuelta.
+- **Ubicación y protección:** Algunos usuarios priorizan conservar la presión instalando antes de la cisterna, mientras otros prefieren un cierre que reduzca más inmediatamente la pérdida dentro de la vivienda. Se conserva la ubicación descrita en la visión y se explicita su límite de cobertura.
+- **Límites compartidos:** Un arrendador podría preferir un límite bajo y otro usuario de la misma instalación necesitar más agua.
+- **Nombres personales:** Dos cuentas distintas pueden querer identificar el mismo dispositivo con nombres distintos, esto se resuelve con alias independientes por cuenta y desasociación individual.
 
 ## 3. Requisitos funcionales
+
+Las prioridades se interpretan así: **imprescindible**, necesario para protección, acceso o uso básico; **importante**, necesario para una operación completa y comprensible; **deseable**, mejora que puede posponerse.
 
 ### 3.1 Resumen
 
@@ -88,31 +71,6 @@ Los perfiles se conservan de DOC-VIS. El contexto de trabajo actual se marca com
 | RF-022 | Preferencias de avisos | Importante | DOC-APP |
 
 ### 3.2 Fichas
-
-*Una ficha por requisito, con los mismos campos siempre. Abajo va un ejemplo completo; bórralo cuando escribas los tuyos.*
-
-<details>
-<summary>Ejemplo original de la plantilla: RF-001 · Registro de consulta (no es un requisito de AwaLume)</summary>
-
-| Campo | Contenido |
-|---|---|
-| Descripción | El sistema registra la consulta de un paciente con fecha, motivo, diagnóstico y veterinario que atendió. |
-| Origen | Entrevista con el veterinario, 15 de septiembre. |
-| Prioridad | Imprescindible |
-| Criterio de aceptación | Al guardar una consulta con los cuatro datos, esta aparece en el historial del paciente con la fecha correcta. Si falta alguno, el sistema no guarda y señala cuál falta. |
-| Relacionado con | RF-004, RNF-SEG-001 |
-
-**RF-002 ·**
-
-| Campo | Contenido |
-|---|---|
-| Descripción | |
-| Origen | |
-| Prioridad | |
-| Criterio de aceptación | |
-| Relacionado con | |
-
-</details>
 
 #### RF-001 · Registro de cuenta
 
@@ -355,35 +313,6 @@ La seguridad funcional de DOC-VIS se concreta en RNF-CON-005 y RNF-REN-001; la d
 
 ### 4.2 Fichas
 
-*Agrupadas por atributo de calidad. Abajo va un ejemplo completo; bórralo cuando escribas los tuyos.*
-
-<details>
-<summary>Ejemplo original de la plantilla: RNF-REN-001 · Tiempo de consulta del historial (no es un requisito de AwaLume)</summary>
-
-| Campo | Contenido |
-|---|---|
-| Atributo de calidad | Rendimiento |
-| Descripción | El historial completo de un paciente se despliega en menos de tres segundos. |
-| Métrica | Tiempo entre la solicitud y el despliegue completo, medido con hasta 500 consultas registradas para ese paciente. |
-| Origen | Derivado del tipo de sistema: de información, con consulta frecuente durante la atención. |
-| Prioridad | Imprescindible |
-| Por qué importa | La consulta ocurre con el paciente enfrente. Si tarda, el veterinario abandona el sistema y vuelve al expediente en papel. |
-| Afecta a | RF-001, RF-004 |
-
-**RNF-SEG-001 ·**
-
-| Campo | Contenido |
-|---|---|
-| Atributo de calidad | |
-| Descripción | |
-| Métrica | |
-| Origen | |
-| Prioridad | |
-| Por qué importa | |
-| Afecta a | |
-
-</details>
-
 #### Rendimiento
 
 ##### RNF-REN-001 · Respuesta del control protector
@@ -513,10 +442,6 @@ La seguridad funcional de DOC-VIS se concreta en RNF-CON-005 y RNF-REN-001; la d
 | Afecta a | RF-012, RF-013, RF-014, RF-015, RF-018 |
 
 ## 5. Casos de uso
-
-*Se trabajan en la semana 7, después de la entrevista. Cada caso de uso se relaciona con los requisitos funcionales que realiza.*
-
-Los siguientes casos se proponen a partir de los documentos del proyecto y deben revisarse después de la entrevista. Adoptan los siete campos del PDF **Elicitación en vivo y casos de uso · SIS3407**, apartado «Qué contiene un caso de uso escrito» (páginas 2 y 3 del archivo adjunto, numeradas 4/7 y 5/7 en el material). Los flujos alternos se identifican con el número del paso del que parten y una letra; indican cómo continuar o terminar cuando no se cumple el recorrido principal.
 
 La frontera considerada es AwaLume completo: dispositivo, aplicación y servicio remoto. El sensor y los componentes internos no se representan como actores externos. En CU-05 y CU-12 el usuario es el destinatario de un servicio iniciado por una condición o un evento; el cierre automático no requiere que intervenga. Los requisitos no funcionales indicados condicionan cada interacción y no son funciones adicionales.
 
@@ -668,17 +593,6 @@ Se conserva la numeración existente: CU-01 integra el acceso como parte de cons
 
 ## 6. Trazabilidad
 
-*Esta tabla es la que hace posible el análisis de impacto de la semana 15. Mantenla actualizada conforme cambien los requisitos.*
-
-<details>
-<summary>Ejemplo original de trazabilidad (material didáctico, no corresponde a AwaLume)</summary>
-
-| Requisito | Origen | Caso de uso | Elemento del prototipo |
-|---|---|---|---|
-| RF-001 | Entrevista 15 sep | CU-01 Registrar consulta | Pantalla de consulta |
-
-</details>
-
 | Requisito | Origen | Caso de uso | Elemento del prototipo |
 |---|---|---|---|
 | RF-001 | DOC-APP | CU-01 | P-01 |
@@ -716,27 +630,8 @@ Se conserva la numeración existente: CU-01 integra el acceso como parte de cons
 
 ## 7. Registro de cambios
 
-*Cada modificación posterior a la primera versión se anota aquí. Un requisito eliminado se marca como tal, pero su identificador no se reutiliza.*
-
 | Fecha | Requisito | Qué cambió | Por qué |
 |---|---|---|---|
 | 2026-09-17 | RF-001 a RF-022; 10 RNF del apartado 4 | Versión 0.1: catálogo inicial, criterios de aceptación, métricas, 10 casos de uso y trazabilidad. Se mantienen las instrucciones y ejemplos originales separados del catálogo. | Documentar AwaLume con la estructura de la plantilla y las reglas de las guías, según la solicitud del autor. |
 | 2026-09-22 | CU-01 a CU-12 y trazabilidad | Versión 0.2: se adopta el formato de siete campos del PDF, se numeran los escenarios y sus alternativas, se concretan los objetivos y se separan la desasociación (CU-11) y la recepción de avisos (CU-12). Se actualizan las relaciones con RF y RNF; se conservan sus fichas y los ejemplos de la plantilla. | Ajustar los casos de uso al material de elicitación del curso solicitado por el autor. |
 
-**Revisión de dupla:** Pendiente. No se ha proporcionado una revisión de esta especificación. Las dudas históricas de la visión no se registran como aprobación de estas fichas.
-
-## Antes de entregar
-
-- [x] Todos los requisitos tienen identificador único y ninguno está repetido
-- [x] Cada requisito expresa una sola idea
-- [x] Cada requisito funcional tiene criterio de aceptación comprobable
-- [x] Cada requisito no funcional tiene una métrica, no solo un adjetivo
-- [x] El campo Origen distingue lo confirmado por el cliente de lo que sigo suponiendo
-- [x] Hay al menos un requisito no funcional por cada atributo de calidad que impone mi tipo de sistema
-- [x] Ningún requisito impone una solución técnica
-- [x] Todos los requisitos caben dentro del alcance declarado
-- [x] La tabla de trazabilidad está completa
-- [ ] Mi dupla revisó el documento y su revisión está registrada
-- [ ] Borré los ejemplos y las instrucciones en cursiva
-
-Las marcas anteriores corresponden a la revisión documental de esta versión; no certifican pruebas del sistema ni aceptación de clientes. La unicidad se evalúa sobre el catálogo de AwaLume, excluyendo los ejemplos didácticos desplegables. El último punto permanece deliberadamente sin marcar porque el autor solicitó conservar ejemplos e instrucciones.
