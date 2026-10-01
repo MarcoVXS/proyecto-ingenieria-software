@@ -1,9 +1,9 @@
 # Visión del producto
 
-**Autor: Marco Villegas Xanthakis
-**Fecha de la última versión: 9/30/2026
-**Repositorio: proyecto-ingenieria-software
-**Fecha de la última revisión por dupla: 9/30/2026
+* Autor: Marco Villegas Xanthakis
+* Fecha de la última versión: 9/30/2026
+* Repositorio: proyecto-ingenieria-software
+* Fecha de la última revisión por dupla: 9/30/2026
 
 \---
 
