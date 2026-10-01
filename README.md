@@ -1,3 +1,6 @@
+# Enlace al prototipo FIGMA: 
+https://www.figma.com/proto/J3EBeL0AEcLCIfyAEMBWwu/AwaLume-%C2%B7-Prototipo-interactivo-%C2%B7-Claro-y-oscuro?node-id=10-1212&starting-point-node-id=10%3A3&t=jdSQB6m7F3Q0ReYD-1
+
 # AwaLume
 
 AwaLume es un sistema de monitoreo y control de agua compuesto por un
@@ -9,10 +12,10 @@ Internet o AwaLume Cloud Service no estén disponibles.
 
 | Ruta | Contenido |
 |---|---|
-| `docs/vision-del-producto.md` | Visión del producto |
-| `docs/guion-entrevista.md` | Entrevista dupla |
-| `docs/especificacion-requisitos.md` | Especificación de requisitos |
-| `docs/diagramas/casos-de-uso.png` | Diagrama de casos de uso |
+| `docs/vision-del-producto.md` | Visión del producto, alcance, usuarios, metodologia y reglas de negocio. |
+| `docs/guion-entrevista.md` | Entrevista dupla y ficha de dominio. |
+| `docs/especificacion-requisitos.md` | Especificación de requisitos, casos de uso y trazabilidad. |
+| `docs/diagramas/casos-de-uso.png` | Diagrama de casos de uso con actores. |
 
 # AwaLume App
 
