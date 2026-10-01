@@ -1,8 +1,8 @@
 # Guion de entrevista y ficha de dominio 
 
-**Autor:** Marco Villegas Xanthakis
-
-**Fecha:** 2026-09-22
+* Autor: Marco Villegas Xanthakis
+* Fecha: 9/30/2026
+* Fecha de la última revisión por dupla: 9/30/2026
 
 ## 1. Guion de entrevista
 
