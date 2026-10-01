@@ -1,6 +1,5 @@
 # Enlace al prototipo FIGMA: 
-https://www.figma.com/proto/J3EBeL0AEcLCIfyAEMBWwu/AwaLume-%C2%B7-Prototipo-interactivo-%C2%B7-Claro-y-oscuro?node-id=10-1212&starting-point-node-id=10%3A3&t=jdSQB6m7F3Q0ReYD-1
-
+https://www.figma.com/proto/J3EBeL0AEcLCIfyAEMBWwu/AwaLume-Prototipo-Interactivo?node-id=10-3&starting-point-node-id=10%3A3&t=dFgaR5zWVSpmjRRh-1
 # AwaLume
 
 AwaLume es un sistema de monitoreo y control de agua compuesto por un
