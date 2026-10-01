@@ -4,15 +4,15 @@
 
 **Autor:** Marco Villegas Xanthakis
 
-**Versión:** 0.3
+**Versión:** 0.4
 
-**Fecha de la última actualización:** 2026-09-29
+**Fecha de la última actualización:** 2026-09-30
 
 ## 1. Propósito y alcance
 
 **Propósito del documento:** Especificar los comportamientos y las condiciones de calidad que se comprobarán en AwaLume. Está dirigido al responsable del producto, al equipo de desarrollo y pruebas, a la dupla revisora y a los usuarios que participen en la validación. Contiene 22 requisitos funcionales y 10 no funcionales; describen objetivos de aceptación, no una declaración de que todos estén implementados o probados.
 
-**Alcance del sistema:** Se retoma de la [Visión del producto](vision-del-producto.md), apartados 1, 3 y 4: monitoreo del flujo y consumo de agua; protección automática mediante límites de litros y tiempo de flujo continuo; control centralizado de varios dispositivos en distintas ubicaciones; gestión de usuarios; estadísticas por periodo; calibración por instalación; aplicación iOS y Android; control auxiliar local ante pérdida de Internet o del servicio remoto. La instalación y el soporte personalizados forman parte del servicio del producto; no se presupone un módulo de agenda, cobros o tickets. AWS, ESP32 y Flutter son decisiones de arquitectura ya documentadas y no se convierten aquí en requisitos funcionales.
+**Alcance del sistema:** Se retoma de la [Visión del producto](vision-del-producto.md), apartados 1, 3 y 4: monitoreo del flujo y consumo de agua; protección automática mediante límites de litros y tiempo de flujo continuo; control centralizado de varios dispositivos en distintas ubicaciones; gestión de usuarios; estadísticas por periodo; calibración por instalación; aplicación iOS y Android; control auxiliar local ante pérdida de Internet o del servicio remoto. La instalación y el soporte personalizados forman parte del servicio del producto; no incluye un módulo de agenda, cobros o tickets. AWS, ESP32 y Flutter son decisiones de arquitectura ya documentadas y no se convierten aquí en requisitos funcionales.
 
 **Fuera del alcance:** Instalación hidráulica completa por el cliente sin ayuda; localización física de una fuga o identificación de su causa; medición de precisión para facturación. El dispositivo mide y controla el agua que pasa por su punto de instalación antes de la cisterna: no mide por separado cada departamento conectado a una tubería común ni puede impedir que se pierda el agua ya almacenada. La modalidad de pago o membresía sigue como duda de la visión y no se resuelve mediante esta especificación.
 
@@ -30,8 +30,8 @@
 
 | Usuario | Qué hace hoy sin el sistema | Qué espera del sistema |
 |---|---|---|
-| Propietario / dueño de casa | Se supone que revisa recibos o el medidor y cierra manualmente una llave cuando descubre una pérdida. La visión menciona alternativas industriales complejas y caras, pero no documenta una entrevista sobre su rutina. | Conocer el consumo de su vivienda y limitar pérdidas aunque no tenga el teléfono a mano. La protección es su necesidad principal. |
-| Arrendador / dueño de departamentos | Se supone que compara consumos o recibos de sus inmuebles y solicita revisiones cuando detecta un gasto elevado; falta confirmar cómo lo hace y quién tiene acceso a las instalaciones. | Consultar varias instalaciones desde una cuenta y comparar sus consumos. Solo podrá distinguir departamentos si cada uno dispone de su propio punto de medición. |
+| Propietario / dueño de casa | Revisa recibos o el medidor y cierra manualmente una llave cuando descubre una pérdida. | Conocer el consumo de su vivienda y limitar pérdidas aunque no tenga el teléfono a mano. La protección es su necesidad principal. |
+| Arrendador / dueño de departamentos | Compara los metros cúbicos de los recibos de sus inmuebles entre periodos, consulta sus notas de ocupación y solicita revisiones cuando detecta un gasto elevado. Coordina el acceso a los departamentos con sus ocupantes; él y su persona de apoyo tienen acceso al área común de la cisterna. | Consultar varias instalaciones desde una cuenta y comparar sus consumos. Solo podrá distinguir departamentos si cada uno dispone de su propio punto de medición. |
 
 **Conflictos identificados entre usuarios:**
 
@@ -47,28 +47,28 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 
 | ID | Nombre | Prioridad | Origen |
 |---|---|---|---|
-| RF-001 | Registro de cuenta | Imprescindible | DOC-APP |
-| RF-002 | Inicio de sesión | Imprescindible | DOC-APP, DOC-VIS |
-| RF-003 | Asociación de dispositivo | Imprescindible | DOC-VIS, DOC-API |
-| RF-004 | Directorio de dispositivos | Imprescindible | DOC-VIS, DOC-APP |
-| RF-005 | Alias por cuenta | Importante | DOC-VIS, DOC-APP |
-| RF-006 | Desasociación individual | Importante | DOC-VIS, DOC-API |
-| RF-007 | Configuración de la red doméstica | Imprescindible | DOC-APP, DOC-FW |
-| RF-008 | Cálculo del flujo | Imprescindible | DOC-VIS, DOC-FW |
-| RF-009 | Acumulado diario | Imprescindible | DOC-VIS, DOC-API |
-| RF-010 | Límite diario de consumo | Imprescindible | DOC-VIS, DOC-API |
-| RF-011 | Límite de flujo continuo | Imprescindible | DOC-VIS, DOC-API |
-| RF-012 | Cierre por consumo | Imprescindible | DOC-VIS, DOC-FW |
-| RF-013 | Cierre por flujo continuo | Imprescindible | DOC-VIS, DOC-FW |
-| RF-014 | Control remoto de válvula | Imprescindible | DOC-VIS, DOC-API |
-| RF-015 | Control local de válvula | Imprescindible | DOC-VIS, DOC-FW, DOC-APP |
-| RF-016 | Resultado de órdenes | Imprescindible | DOC-API, DOC-APP |
-| RF-017 | Consulta de estadísticas | Importante | DOC-VIS, DOC-APP |
-| RF-018 | Calibración por muestra | Importante | DOC-VIS, DOC-FW |
-| RF-019 | Aviso de cambio de válvula | Importante | DOC-APP |
-| RF-020 | Aviso de desconexión | Importante | DOC-APP, DOC-API |
-| RF-021 | Aviso de consumo atípico | Importante | DOC-APP, SUP |
-| RF-022 | Preferencias de avisos | Importante | DOC-APP |
+| RF-001 | Registro de cuenta | Imprescindible | DOC-README |
+| RF-002 | Inicio de sesión | Imprescindible | DOC-README, DOC-VIS |
+| RF-003 | Asociación de dispositivo | Imprescindible | DOC-VIS, DOC-README |
+| RF-004 | Directorio de dispositivos | Imprescindible | DOC-VIS, DOC-README |
+| RF-005 | Alias por cuenta | Importante | DOC-VIS, DOC-README |
+| RF-006 | Desasociación individual | Importante | DOC-VIS, DOC-README |
+| RF-007 | Configuración de la red doméstica | Imprescindible | DOC-README |
+| RF-008 | Cálculo del flujo | Imprescindible | DOC-VIS, DOC-README |
+| RF-009 | Acumulado diario | Imprescindible | DOC-VIS, DOC-README |
+| RF-010 | Límite diario de consumo | Imprescindible | DOC-VIS, DOC-README |
+| RF-011 | Límite de flujo continuo | Imprescindible | DOC-VIS, DOC-README |
+| RF-012 | Cierre por consumo | Imprescindible | DOC-VIS, DOC-README |
+| RF-013 | Cierre por flujo continuo | Imprescindible | DOC-VIS, DOC-README |
+| RF-014 | Control remoto de válvula | Imprescindible | DOC-VIS, DOC-README |
+| RF-015 | Control local de válvula | Imprescindible | DOC-VIS, DOC-README |
+| RF-016 | Resultado de órdenes | Imprescindible | DOC-README |
+| RF-017 | Consulta de estadísticas | Importante | DOC-VIS, DOC-README |
+| RF-018 | Calibración por muestra | Importante | DOC-VIS, DOC-README |
+| RF-019 | Aviso de cambio de válvula | Importante | DOC-README |
+| RF-020 | Aviso de desconexión | Importante | DOC-README |
+| RF-021 | Aviso de consumo atípico | Importante | DOC-README, DOC-ENTV |
+| RF-022 | Preferencias de avisos | Importante | DOC-README |
 
 ### 3.2 Fichas
 
@@ -77,7 +77,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema registra una cuenta con correo electrónico y contraseña, condicionada a la confirmación del correo. |
-| Origen | DOC-APP, registro y confirmación por correo; derivado de documentación, no de entrevista. |
+| Origen | DOC-README, registro y confirmación por correo; derivado de documentación, no de entrevista. |
 | Prioridad | Imprescindible |
 | Criterio de aceptación | Con un correo no registrado y datos válidos, se crea una cuenta pendiente. Antes de confirmar el correo no se autoriza el acceso remoto; tras una confirmación válida, la cuenta puede iniciar sesión. Registrar de nuevo el mismo correo no crea una segunda cuenta. |
 | Relacionado con | RF-002, RNF-SEG-001 |
@@ -87,7 +87,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema autentica el acceso remoto mediante las credenciales de una cuenta confirmada. |
-| Origen | DOC-APP, inicio de sesión; DOC-VIS, control y seguridad de usuarios. |
+| Origen | DOC-README, inicio de sesión; DOC-VIS, control y seguridad de usuarios. |
 | Prioridad | Imprescindible |
 | Criterio de aceptación | Una cuenta confirmada con credenciales válidas obtiene acceso a su directorio. Una contraseña incorrecta o una cuenta no confirmada no concede acceso a datos de dispositivos. |
 | Relacionado con | RF-001, RF-004, RNF-SEG-001 |
@@ -97,7 +97,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema asocia un dispositivo a una cuenta autenticada tras validar una autorización temporal obtenida mediante acceso local al dispositivo. |
-| Origen | DOC-VIS, reglas 4 y 5; DOC-API, asociación sin propietario único. |
+| Origen | DOC-VIS, reglas 4 y 5; DOC-README, asociación sin propietario único. |
 | Prioridad | Imprescindible |
 | Criterio de aceptación | Una autorización válida crea una asociación visible en la cuenta. Conocer solo el identificador no basta; una autorización vencida o usada por otra cuenta se rechaza. Dos cuentas pueden asociar el mismo dispositivo con autorizaciones distintas. Repetir una solicitud ya completada por la misma cuenta no duplica la asociación. |
 | Relacionado con | RF-002, RF-004, RF-006, RNF-SEG-001 |
@@ -107,7 +107,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema muestra los dispositivos asociados a la cuenta para seleccionar la instalación que se desea consultar o controlar. |
-| Origen | DOC-VIS, control centralizado de varias ubicaciones; DOC-APP, lista y selección. |
+| Origen | DOC-VIS, control centralizado de varias ubicaciones; DOC-README, lista y selección. |
 | Prioridad | Imprescindible |
 | Criterio de aceptación | Una cuenta asociada a dos dispositivos muestra ambos, cada uno con su identificador y alias. Seleccionar uno abre sus datos y dirige las acciones a ese dispositivo. Una cuenta sin asociaciones muestra una lista vacía. |
 | Relacionado con | RF-003, RF-005, RF-014, RF-017, RNF-SEG-001 |
@@ -117,7 +117,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema guarda un alias de dispositivo independiente para cada cuenta asociada. |
-| Origen | DOC-VIS, regla 4; DOC-APP, alias editable. |
+| Origen | DOC-VIS, regla 4; DOC-README, alias editable. |
 | Prioridad | Importante |
 | Criterio de aceptación | Dos cuentas asignan alias distintos al mismo dispositivo. Cambiar el alias en la primera modifica únicamente su directorio y el nombre se conserva al volver a iniciar sesión. |
 | Relacionado con | RF-003, RF-004, RNF-SEG-001 |
@@ -127,7 +127,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema elimina la asociación del dispositivo con la cuenta que confirma su desasociación. |
-| Origen | DOC-VIS, regla 4; DOC-API, eliminación de la relación usuario-dispositivo. |
+| Origen | DOC-VIS, regla 4; DOC-README, eliminación de la relación usuario-dispositivo. |
 | Prioridad | Importante |
 | Criterio de aceptación | Tras confirmar, el dispositivo desaparece del directorio de esa cuenta y su acceso remoto se rechaza. El historial del dispositivo y el acceso de otra cuenta asociada permanecen. Cancelar la confirmación conserva la asociación. |
 | Relacionado con | RF-003, RF-004, RNF-SEG-001 |
@@ -137,7 +137,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema configura la conexión del dispositivo a una red doméstica a partir de los datos proporcionados por un usuario con acceso local autorizado. |
-| Origen | DOC-APP, alta y ajustes de Wi-Fi; DOC-FW, configuración local. |
+| Origen | DOC-README, alta y ajustes de Wi-Fi; DOC-README, configuración local. |
 | Prioridad | Imprescindible |
 | Criterio de aceptación | Con datos correctos de una red compatible y disponible, el dispositivo logra conectarse. Con una contraseña incorrecta no informa éxito y conserva el acceso local para corregirla. Los datos sensibles no aparecen en bitácoras. |
 | Relacionado con | RF-003, RF-015, RNF-SEG-002, RNF-USA-001 |
@@ -147,7 +147,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema calcula el flujo de agua en litros por minuto a partir de las lecturas del sensor y la calibración vigente. |
-| Origen | DOC-VIS, descripción del sistema; DOC-FW, lectura del sensor. |
+| Origen | DOC-VIS, descripción del sistema; DOC-README, lectura del sensor. |
 | Prioridad | Imprescindible |
 | Criterio de aceptación | En una prueba con calibración de 450 pulsos por litro, 450 pulsos uniformes durante 60 segundos representan 1 L/min, con la tolerancia de redondeo de la presentación. Sin pulsos durante un intervalo completo de medición, el flujo calculado es cero. La prueba verifica la conversión, no una precisión física certificada. |
 | Relacionado con | RF-009, RF-013, RF-018, RNF-CON-001 |
@@ -157,7 +157,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema acumula en litros el volumen medido por dispositivo durante cada día de la instalación. |
-| Origen | DOC-VIS, consumo diario; DOC-API, agregados diarios y cambio de día. |
+| Origen | DOC-VIS, consumo diario; DOC-README, agregados diarios y cambio de día. |
 | Prioridad | Imprescindible |
 | Criterio de aceptación | Con acumulado inicial cero y calibración de 450 pulsos/L, 4,500 pulsos suman 10 L. Al cambiar la fecha local, el acumulado del día nuevo empieza en cero y el total anterior queda consultable. El reinicio manual del contador, si se utiliza, no elimina el volumen ya contabilizado del día en el historial. |
 | Relacionado con | RF-008, RF-012, RF-017, RNF-CON-002, RNF-CON-003 |
@@ -167,7 +167,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema configura por dispositivo el límite diario de consumo en litros, donde cero desactiva exclusivamente esta protección. |
-| Origen | DOC-VIS, límites de consumo; DOC-API, configuración y valor cero. |
+| Origen | DOC-VIS, límites de consumo; DOC-README, configuración y valor cero. |
 | Prioridad | Imprescindible |
 | Criterio de aceptación | Al solicitar 1,000 L, el valor se presenta como pendiente hasta que el dispositivo confirme su aplicación. Tras confirmarlo, RF-012 utiliza ese límite. Un valor negativo se rechaza sin cambiar el límite anterior; cero no desactiva la protección de tiempo. |
 | Relacionado con | RF-012, RF-016, RNF-CON-002 |
@@ -177,7 +177,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema configura por dispositivo el tiempo máximo de flujo continuo en minutos, donde cero desactiva exclusivamente esta protección. |
-| Origen | DOC-VIS, tiempo máximo de flujo; DOC-API, configuración y valor cero. |
+| Origen | DOC-VIS, tiempo máximo de flujo; DOC-README, configuración y valor cero. |
 | Prioridad | Imprescindible |
 | Criterio de aceptación | Al solicitar 30 minutos, el valor queda pendiente hasta su confirmación por el dispositivo. Tras confirmarlo, RF-013 utiliza ese tiempo. Un valor negativo se rechaza sin cambiar el anterior; cero no desactiva la protección de litros. |
 | Relacionado con | RF-013, RF-016, RNF-CON-002 |
@@ -187,7 +187,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema cierra localmente la válvula cuando el acumulado diario supera el límite de consumo habilitado. |
-| Origen | DOC-VIS, regla 1; DOC-FW, protección local. |
+| Origen | DOC-VIS, regla 1; DOC-README, protección local. |
 | Prioridad | Imprescindible |
 | Criterio de aceptación | Con límite de 10 L y sin otra causa de cierre, 9 L no provoca cierre por consumo. Al superar 10 L, se acciona el cierre; en banco hidráulico se comprueba que cesa el paso de agua. El mismo resultado se obtiene sin Internet. |
 | Relacionado con | RF-009, RF-010, RF-019, RNF-REN-001, RNF-CON-001, RNF-CON-005 |
@@ -197,7 +197,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema cierra localmente la válvula cuando la duración de un episodio de flujo continuo supera el límite de tiempo habilitado. |
-| Origen | DOC-VIS, regla 1; DOC-FW, protección por tiempo. |
+| Origen | DOC-VIS, regla 1; DOC-README, protección por tiempo. |
 | Prioridad | Imprescindible |
 | Criterio de aceptación | Con límite de 2 minutos y sin otra causa de cierre, un episodio de 1 minuto no cierra por tiempo y uno que supera 2 minutos sí. Un intervalo completo de medición sin flujo termina el episodio: el siguiente comienza con duración cero. Se verifica el cierre con agua y se repite sin Internet. |
 | Relacionado con | RF-008, RF-011, RF-019, RNF-REN-001, RNF-CON-001, RNF-CON-005 |
@@ -207,7 +207,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema procesa órdenes remotas para establecer el estado abierto o cerrado de la válvula del dispositivo seleccionado. |
-| Origen | DOC-VIS, reglas 1 y 2; DOC-API, comandos remotos. |
+| Origen | DOC-VIS, reglas 1 y 2; DOC-README, comandos remotos. |
 | Prioridad | Imprescindible |
 | Criterio de aceptación | Una cuenta asociada solicita el cierre y el dispositivo conectado lo ejecuta. La apertura solo se admite con estado en línea, último reporte de antigüedad máxima de 7 minutos y ausencia de bloqueo local. Una apertura solicitada sin esas condiciones se rechaza y no queda pendiente para la reconexión. Cada orden remota de esta línea base vence a los 120 segundos de su emisión. |
 | Relacionado con | RF-004, RF-016, RNF-SEG-001, RNF-CON-003, RNF-CON-005 |
@@ -217,7 +217,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema procesa órdenes de válvula mediante acceso local autorizado al dispositivo, incluso cuando el servicio remoto está inaccesible. |
-| Origen | DOC-VIS, control auxiliar; DOC-FW y DOC-APP, acceso local independiente de la sesión remota. |
+| Origen | DOC-VIS, control auxiliar; DOC-README, acceso local independiente de la sesión remota. |
 | Prioridad | Imprescindible |
 | Criterio de aceptación | Sin Internet ni sesión remota disponible, el usuario conectado a la red local protegida del dispositivo puede cerrar la válvula. Puede abrirla solo si no hay un bloqueo local activo. Si la identidad del equipo conectado no coincide con la seleccionada, no se habilita el control. |
 | Relacionado con | RF-016, RNF-SEG-001, RNF-CON-001, RNF-CON-005 |
@@ -227,7 +227,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema muestra el resultado de cada orden de válvula o cambio de límite según la confirmación del dispositivo destinatario. |
-| Origen | DOC-APP, estados pendientes; DOC-API, confirmación del dispositivo. |
+| Origen | DOC-README, estados pendientes; DOC-README, confirmación del dispositivo. |
 | Prioridad | Imprescindible |
 | Criterio de aceptación | Que el servicio reciba una solicitud no basta para mostrarla como aplicada. Antes de la confirmación se muestra pendiente; después se muestra aplicada o rechazada según el resultado. Una orden vencida o sin confirmación se identifica como tal, sin atribuirle éxito. Una confirmación de otro dispositivo u otra orden no confirma la actual. |
 | Relacionado con | RF-010, RF-011, RF-014, RF-015, RNF-CON-004 |
@@ -237,7 +237,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema muestra las estadísticas de consumo y duración máxima de flujo continuo del dispositivo para el periodo seleccionado. |
-| Origen | DOC-VIS, estadísticas por periodos; DOC-APP, filtros Hoy, 7 días, 30 días y 12 meses. |
+| Origen | DOC-VIS, estadísticas por periodos; DOC-README, filtros Hoy, 7 días, 30 días y 12 meses. |
 | Prioridad | Importante |
 | Criterio de aceptación | Con un historial conocido, cada filtro muestra solo los datos de su periodo y del dispositivo elegido, con litros y unidades de tiempo visibles. Las sumas coinciden con los registros de prueba. Si no hay registros, se indica ausencia de datos; no se presenta como consumo cero medido. |
 | Relacionado con | RF-004, RF-008, RF-009, RNF-REN-002, RNF-SEG-001, RNF-CON-003, RNF-CON-004 |
@@ -247,7 +247,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema ajusta la calibración del sensor mediante una sesión de medición y el volumen real de una muestra proporcionado por el usuario. |
-| Origen | DOC-VIS, calibración por instalación; DOC-FW, procedimiento por muestra física. |
+| Origen | DOC-VIS, calibración por instalación; DOC-README, procedimiento por muestra física. |
 | Prioridad | Importante |
 | Criterio de aceptación | En una sesión iniciada sin flujo, se hace pasar una muestra, se detiene el flujo y se registra su volumen. Con 4,500 pulsos y 10 L, el dispositivo confirma un factor de 450 pulsos/L. Un volumen cero, una sesión sin pulsos o una sesión interrumpida por reinicio se rechaza sin sustituir la calibración anterior. |
 | Relacionado con | RF-008, RF-009, RNF-CON-002, RNF-CON-005 |
@@ -257,7 +257,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema notifica los cambios de estado de la válvula a las cuentas asociadas que tengan habilitada la categoría correspondiente. |
-| Origen | DOC-APP, avisos de válvula y cierres automáticos. |
+| Origen | DOC-README, avisos de válvula y cierres automáticos. |
 | Prioridad | Importante |
 | Criterio de aceptación | Con permisos del teléfono, entrega de avisos disponible y categoría habilitada, un cambio reportado genera un aviso que identifica el dispositivo y el nuevo estado; un cierre automático incluye su motivo. Repetir el mismo evento no genera un segundo aviso. Sin conexión remota, el cierre local no espera la entrega del aviso. |
 | Relacionado con | RF-012, RF-013, RF-014, RF-015, RF-022, RNF-CON-003 |
@@ -267,7 +267,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema notifica la pérdida de conexión remota del dispositivo a las cuentas asociadas que tengan habilitado ese aviso. |
-| Origen | DOC-APP, notificación de desconexión; DOC-API, presencia y antigüedad del último reporte. |
+| Origen | DOC-README, notificación de desconexión; DOC-README, presencia y antigüedad del último reporte. |
 | Prioridad | Importante |
 | Criterio de aceptación | Con entrega de avisos disponible, se genera un aviso cuando el servicio recibe una desconexión o deja de considerar reciente el último reporte conforme al límite de 7 minutos de RF-014. Se emite un aviso por episodio; una desconexión posterior a una reconexión confirmada permite uno nuevo. No se exige entrega al teléfono mientras este carezca de conexión. |
 | Relacionado con | RF-014, RF-022, RNF-CON-003 |
@@ -277,7 +277,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema notifica cuando el consumo diario del dispositivo supera su promedio de los siete días completos anteriores. |
-| Origen | DOC-APP, avisos de superación de promedios; SUP: exigir siete días completos como base de comparación para esta versión. |
+| Origen | DOC-README, avisos de superación de promedios; DOC-ENTV: exigir siete días completos como base de comparación para esta versión. |
 | Prioridad | Importante |
 | Criterio de aceptación | Con siete días completos de 100 L cada uno, un consumo actual de 101 L genera un aviso si la categoría está habilitada; 100 L no lo genera. Se emite como máximo uno por dispositivo, cuenta y día. Si faltan días de referencia, esta regla no emite aviso ni inventa valores para completar la media. |
 | Relacionado con | RF-009, RF-017, RF-022, RNF-CON-003 |
@@ -287,7 +287,7 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 | Campo | Contenido |
 |---|---|
 | Descripción | El sistema guarda por cuenta las preferencias de recepción de avisos de válvula, cierres automáticos, desconexión y consumo atípico. |
-| Origen | DOC-APP, preferencias independientes por usuario. |
+| Origen | DOC-README, preferencias independientes por usuario. |
 | Prioridad | Importante |
 | Criterio de aceptación | Desactivar una categoría evita los avisos posteriores de esa categoría para la cuenta y el cambio persiste al volver a entrar. Otra cuenta asociada conserva sus preferencias. Desactivar avisos no desactiva los límites ni las protecciones del dispositivo. |
 | Relacionado con | RF-019, RF-020, RF-021, RNF-SEG-001 |
@@ -298,16 +298,16 @@ Las prioridades se interpretan así: **imprescindible**, necesario para protecci
 
 | ID | Atributo | Nombre | Prioridad | Origen |
 |---|---|---|---|---|
-| RNF-REN-001 | Rendimiento | Respuesta del control protector | Imprescindible | DOC-VIS; SUP: 2 segundos |
-| RNF-REN-002 | Rendimiento | Tiempo de consulta de estadísticas | Importante | DOC-VIS; SUP: 3 segundos y carga de prueba |
-| RNF-SEG-001 | Seguridad | Aislamiento de acceso | Imprescindible | DOC-VIS, DOC-API, DOC-APP |
-| RNF-SEG-002 | Seguridad | Ausencia de secretos en bitácoras | Imprescindible | DOC-VIS, DOC-API, DOC-FW |
-| RNF-USA-001 | Usabilidad | Alta sin ayuda del equipo | Importante | DOC-VIS; SUP: muestra y meta de uso |
-| RNF-CON-001 | Confiabilidad | Autonomía ante caída de red | Imprescindible | DOC-VIS, DOC-FW; SUP: duración del ensayo |
-| RNF-CON-002 | Confiabilidad | Recuperación de configuración confirmada | Imprescindible | DOC-FW; SUP: cantidad de reinicios |
-| RNF-CON-003 | Confiabilidad | Efectos únicos ante duplicados | Imprescindible | DOC-API, DOC-FW; SUP: repeticiones del ensayo |
-| RNF-CON-004 | Confiabilidad | Consistencia ante reportes atrasados | Imprescindible | DOC-API |
-| RNF-CON-005 | Confiabilidad | Prioridad de la protección local | Imprescindible | DOC-VIS, DOC-FW, DOC-API |
+| RNF-REN-001 | Rendimiento | Respuesta del control protector | Imprescindible | DOC-VIS; DOC-ENTV: 2 segundos |
+| RNF-REN-002 | Rendimiento | Tiempo de consulta de estadísticas | Importante | DOC-VIS; DOC-ENTV: 3 segundos y carga de prueba |
+| RNF-SEG-001 | Seguridad | Aislamiento de acceso | Imprescindible | DOC-VIS, DOC-README |
+| RNF-SEG-002 | Seguridad | Ausencia de secretos en bitácoras | Imprescindible | DOC-VIS, DOC-README |
+| RNF-USA-001 | Usabilidad | Alta sin ayuda del equipo | Importante | DOC-VIS; DOC-ENTV: muestra y meta de uso |
+| RNF-CON-001 | Confiabilidad | Autonomía ante caída de red | Imprescindible | DOC-VIS, DOC-README; DOC-ENTV: duración del ensayo |
+| RNF-CON-002 | Confiabilidad | Recuperación de configuración confirmada | Imprescindible | DOC-README; DOC-ENTV: cantidad de reinicios |
+| RNF-CON-003 | Confiabilidad | Efectos únicos ante duplicados | Imprescindible | DOC-README; DOC-ENTV: repeticiones del ensayo |
+| RNF-CON-004 | Confiabilidad | Consistencia ante reportes atrasados | Imprescindible | DOC-README |
+| RNF-CON-005 | Confiabilidad | Prioridad de la protección local | Imprescindible | DOC-VIS, DOC-README |
 
 La seguridad funcional de DOC-VIS se concreta en RNF-CON-005 y RNF-REN-001; la disponibilidad y tolerancia a fallos, en RNF-CON-001; la confiabilidad e integridad, en RNF-CON-002 a RNF-CON-004; la seguridad y privacidad, en RNF-SEG-001 y RNF-SEG-002; y la usabilidad, en RNF-USA-001. Se usan las claves de atributos de la guía. No se añaden metas de escalabilidad o mantenibilidad sin una necesidad sustentada en el alcance.
 
@@ -322,7 +322,7 @@ La seguridad funcional de DOC-VIS se concreta en RNF-CON-005 y RNF-REN-001; la d
 | Atributo de calidad | Rendimiento |
 | Descripción | El dispositivo emite la acción de cierre en un máximo de 2 segundos desde que sus mediciones detectan la superación de un límite habilitado. |
 | Métrica | Tiempo desde la detección del exceso hasta la señal de accionamiento de cierre, como máximo 2 s en cada uno de 20 ensayos por protección, con alimentación estable, tanto con Internet como sin él. No incluye el recorrido mecánico de la válvula, cuyo cierre físico se comprueba en RF-012 y RF-013. |
-| Origen | DOC-VIS, sistema embebido y crítico; SUP: umbral de 2 s y número de ensayos propuestos, pendientes de validación en banco. |
+| Origen | DOC-VIS, sistema embebido y crítico; DOC-ENTV: umbral de 2 s y número de ensayos definidos para la validación en banco. |
 | Prioridad | Imprescindible |
 | Por qué importa | Retrasar la orden permite seguir acumulando pérdidas. La meta separa la respuesta del controlador del tiempo mecánico para poder medir ambas sin confundirlas. |
 | Afecta a | RF-012, RF-013 |
@@ -334,7 +334,7 @@ La seguridad funcional de DOC-VIS se concreta en RNF-CON-005 y RNF-REN-001; la d
 | Atributo de calidad | Rendimiento |
 | Descripción | La app presenta una vista de estadísticas de hasta 365 resúmenes diarios en menos de 3 segundos en al menos el 95 % de las consultas bajo la carga definida. |
 | Métrica | Desde seleccionar el periodo hasta visualizar la gráfica completa: menos de 3 s en al menos 95 de 100 consultas, con 10 cuentas consultando simultáneamente, conexión estable de al menos 10 Mbps y latencia de red de ida y vuelta no mayor a 100 ms. Se registra el teléfono y la versión utilizados. |
-| Origen | DOC-VIS, sistema de información y análisis; SUP: tiempo, carga y condiciones de ensayo propuestos, no mediciones ya obtenidas. |
+| Origen | DOC-VIS, sistema de información y análisis; DOC-ENTV: tiempo, carga y condiciones de ensayo definidos como criterios de aceptación, no como mediciones ya obtenidas. |
 | Prioridad | Importante |
 | Por qué importa | La consulta debe servir para comparar instalaciones sin esperas que dificulten el uso cotidiano. La carga acotada corresponde a una meta inicial por validar. |
 | Afecta a | RF-017 |
@@ -348,7 +348,7 @@ La seguridad funcional de DOC-VIS se concreta en RNF-CON-005 y RNF-REN-001; la d
 | Atributo de calidad | Seguridad |
 | Descripción | El sistema rechaza el 100 % de los intentos de acceso a datos o acciones sin la autorización correspondiente al canal utilizado. |
 | Métrica | En remoto, probar todas las operaciones de consulta y modificación con sesión ausente, inválida y de una cuenta no asociada: cero lecturas o cambios autorizados. Probar además que una cuenta no modifica alias, asociaciones o preferencias de otra. En local, sin acceso a la red protegida o con identidad de equipo distinta de la seleccionada: cero órdenes de válvula ejecutadas. La ausencia de sesión remota por sí sola no bloquea el acceso local autorizado. |
-| Origen | DOC-VIS, seguridad y cuentas compartidas; DOC-API, autorización por asociación; DOC-APP, acceso local independiente. |
+| Origen | DOC-VIS, seguridad y cuentas compartidas; DOC-README, autorización por asociación; DOC-README, acceso local independiente. |
 | Prioridad | Imprescindible |
 | Por qué importa | El consumo revela hábitos de la vivienda y una orden no autorizada afecta el suministro. La condición local evita que una caída del servicio de identidad elimine el control de contingencia previsto. |
 | Afecta a | RF-001, RF-002, RF-003, RF-004, RF-005, RF-006, RF-010, RF-011, RF-014, RF-015, RF-017, RF-018, RF-022 |
@@ -360,7 +360,7 @@ La seguridad funcional de DOC-VIS se concreta en RNF-CON-005 y RNF-REN-001; la d
 | Atributo de calidad | Seguridad |
 | Descripción | Las bitácoras de la aplicación, del dispositivo y del servicio remoto contienen cero contraseñas, llaves privadas o credenciales temporales de acceso en claro. |
 | Métrica | Ejecutar registro, acceso, asociación y configuración de red con credenciales de prueba identificables, incluyendo errores y reintentos. Buscar esas credenciales completas en las bitácoras de los tres componentes: cero coincidencias. |
-| Origen | DOC-VIS, regla 5; DOC-API y DOC-FW, exclusión de secretos de bitácoras. |
+| Origen | DOC-VIS, regla 5; DOC-README, exclusión de secretos de bitácoras. |
 | Prioridad | Imprescindible |
 | Por qué importa | Los registros se utilizan para diagnóstico y no deben convertirse en un medio para entrar a cuentas o controlar instalaciones. |
 | Afecta a | RF-001, RF-002, RF-003, RF-007 |
@@ -374,7 +374,7 @@ La seguridad funcional de DOC-VIS se concreta en RNF-CON-005 y RNF-REN-001; la d
 | Atributo de calidad | Usabilidad |
 | Descripción | Al menos 8 de 10 usuarios nuevos completan la asociación y configuran la red del dispositivo en un máximo de 10 minutos sin asistencia verbal del equipo. |
 | Métrica | Prueba con 10 personas sin experiencia previa en AwaLume, una cuenta ya confirmada, dispositivo instalado y alimentado, credenciales disponibles y red operativa. Medir desde abrir el alta hasta que el dispositivo aparece conectado en su cuenta; pueden usar únicamente las instrucciones de la app y la etiqueta del producto. Registrar teléfono y sistema operativo, incluyendo participantes con iOS y Android. |
-| Origen | DOC-VIS, aplicación para usuarios no técnicos; SUP: tamaño de muestra, proporción y tiempo propuestos para validación. |
+| Origen | DOC-VIS, aplicación para usuarios no técnicos; DOC-ENTV: tamaño de muestra, proporción y tiempo definidos para la validación. |
 | Prioridad | Importante |
 | Por qué importa | La instalación hidráulica requiere ayuda, pero el alta cotidiana debe poder completarse con las instrucciones del producto. La prueba no promete instalación de tubería sin un especialista. |
 | Afecta a | RF-003, RF-007 |
@@ -388,7 +388,7 @@ La seguridad funcional de DOC-VIS se concreta en RNF-CON-005 y RNF-REN-001; la d
 | Atributo de calidad | Confiabilidad |
 | Descripción | El dispositivo mantiene la medición y el control protector durante la indisponibilidad de Internet y del servicio remoto mientras conserve alimentación. |
 | Métrica | Durante un ensayo de 60 minutos sin conexión remota, comprobar acumulación con un volumen de prueba y provocar por separado ambos límites: cero cierres omitidos por falta de red. Comprobar también el control local autorizado. El ensayo de 60 minutos no establece una caducidad del funcionamiento autónomo. |
-| Origen | DOC-VIS y DOC-FW, independencia de la nube; SUP: duración de 60 minutos para el ensayo inicial. |
+| Origen | DOC-VIS y DOC-README, independencia de la nube; DOC-ENTV: duración de 60 minutos para el ensayo inicial. |
 | Prioridad | Imprescindible |
 | Por qué importa | La pérdida de conexión no debe desactivar la protección de la instalación. Los avisos e históricos remotos pueden quedar indisponibles durante la caída. |
 | Afecta a | RF-008, RF-009, RF-012, RF-013, RF-015 |
@@ -400,9 +400,9 @@ La seguridad funcional de DOC-VIS se concreta en RNF-CON-005 y RNF-REN-001; la d
 | Atributo de calidad | Confiabilidad |
 | Descripción | El dispositivo recupera el 100 % de los límites, la calibración y la orden de válvula cuya persistencia se había confirmado antes de un reinicio. |
 | Métrica | Configurar valores conocidos, esperar confirmación y reiniciar 20 veces: cero pérdidas de límites o calibración. Tras cada arranque, un cierre persistido permanece ordenado; una sesión previamente abierta se restaura abierta si no hay bloqueo local. Se evalúa el estado posterior al arranque, no el suministro durante el corte eléctrico. |
-| Origen | DOC-FW, persistencia y política de arranque; SUP: 20 reinicios como muestra inicial. |
+| Origen | DOC-README, persistencia y política de arranque; DOC-ENTV: 20 reinicios como muestra inicial. |
 | Prioridad | Imprescindible |
-| Por qué importa | Volver a valores arbitrarios puede eliminar la protección. Esta garantía no se extiende al consumo ocurrido desde la última persistencia hasta el corte, cuya posible pérdida parcial reconoce DOC-FW. |
+| Por qué importa | Volver a valores arbitrarios puede eliminar la protección. Esta garantía no se extiende al consumo ocurrido desde la última persistencia hasta el corte, cuya posible pérdida parcial reconoce DOC-README. |
 | Afecta a | RF-009, RF-010, RF-011, RF-014, RF-015, RF-018 |
 
 ##### RNF-CON-003 · Efectos únicos ante duplicados
@@ -412,7 +412,7 @@ La seguridad funcional de DOC-VIS se concreta en RNF-CON-005 y RNF-REN-001; la d
 | Atributo de calidad | Confiabilidad |
 | Descripción | El sistema produce como máximo un efecto por identificador de orden, muestra o evento aunque reciba duplicados. |
 | Métrica | Reenviar 10 veces cada orden, muestra de consumo y evento de aviso con el mismo identificador: una ejecución como máximo, un registro de consumo y un aviso como máximo por destinatario elegible. Repetir una orden de válvula después de reiniciar no vuelve a ejecutarla si su resultado ya se confirmó. |
-| Origen | DOC-API y DOC-FW, operaciones idempotentes y deduplicación; SUP: 10 repeticiones por ensayo. |
+| Origen | DOC-README, operaciones idempotentes y deduplicación; DOC-ENTV: 10 repeticiones por ensayo. |
 | Prioridad | Imprescindible |
 | Por qué importa | Los reintentos de comunicación no deben inflar estadísticas, repetir movimientos de válvula o saturar de avisos a los usuarios. |
 | Afecta a | RF-009, RF-014, RF-016, RF-017, RF-019, RF-020, RF-021 |
@@ -424,7 +424,7 @@ La seguridad funcional de DOC-VIS se concreta en RNF-CON-005 y RNF-REN-001; la d
 | Atributo de calidad | Confiabilidad |
 | Descripción | El sistema conserva el estado más reciente de un dispositivo al recibir reportes anteriores a ese estado. |
 | Métrica | Ingresar dos reportes con orden temporal conocido en ambas secuencias posibles: el estado actual final coincide con el más reciente en el 100 % de los casos de prueba. Una solicitud aún no confirmada no sustituye el estado reportado ni convierte por sí sola un equipo desconectado en conectado. |
-| Origen | DOC-API, orden de ingesta y distinción entre solicitado y confirmado. |
+| Origen | DOC-README, orden de ingesta y distinción entre solicitado y confirmado. |
 | Prioridad | Imprescindible |
 | Por qué importa | Presentar una lectura antigua como actual puede hacer que el usuario crea que una acción se ejecutó o que el dispositivo volvió a conectarse. |
 | Afecta a | RF-004, RF-016, RF-017, RF-020 |
@@ -436,16 +436,16 @@ La seguridad funcional de DOC-VIS se concreta en RNF-CON-005 y RNF-REN-001; la d
 | Atributo de calidad | Confiabilidad, aplicada a seguridad funcional |
 | Descripción | El dispositivo ejecuta cero aperturas que contradigan una protección local activa o una orden remota vencida. |
 | Métrica | Probar apertura local y remota con exceso de litros, exceso de tiempo y fallo de almacenamiento, y entregar una orden remota después de sus 120 s de vigencia: cero aperturas. Repetir tras una reconexión y un reinicio. La apertura vuelve a ser admisible solo después de resolver el bloqueo y recibir una orden válida; la calibración no suspende esta condición. |
-| Origen | DOC-VIS, reglas 1 a 3; DOC-FW y DOC-API, precedencia local y vigencia de comandos. |
+| Origen | DOC-VIS, reglas 1 a 3; DOC-README, precedencia local y vigencia de comandos. |
 | Prioridad | Imprescindible |
-| Por qué importa | Una reconexión o un comando atrasado no debe reabrir el paso de agua contra una protección vigente. El criterio supone alimentación y actuador funcionales, como se delimita en el apartado 1. |
+| Por qué importa | Una reconexión o un comando atrasado no debe reabrir el paso de agua contra una protección vigente. El criterio requiere alimentación y actuador funcionales, como se delimita en el apartado 1. |
 | Afecta a | RF-012, RF-013, RF-014, RF-015, RF-018 |
 
 ## 5. Casos de uso
 
 La frontera considerada es AwaLume completo: dispositivo, aplicación y servicio remoto. El sensor y los componentes internos no se representan como actores externos. En CU-05 y CU-12 el usuario es el destinatario de un servicio iniciado por una condición o un evento; el cierre automático no requiere que intervenga. Los requisitos no funcionales indicados condicionan cada interacción y no son funciones adicionales.
 
-Se conserva la numeración existente: CU-01 integra el acceso como parte de consultar las instalaciones; CU-03 se concreta en el alias y CU-10 en las preferencias. La desasociación y la recepción de avisos pasan a CU-11 y CU-12, respectivamente. Las rutas de la sección 6 permiten revisar los elementos del prototipo y no certifican que las pruebas ya se hayan satisfecho.
+Se conserva la numeración existente: CU-01 integra el acceso como parte de consultar las instalaciones; CU-03 se concreta en el alias y CU-10 en las preferencias. La desasociación y la recepción de avisos pasan a CU-11 y CU-12, respectivamente. Los nombres de la sección 6 permiten identificar los elementos del prototipo y no certifican que las pruebas ya se hayan satisfecho.
 
 ### CU-01 · Consultar las instalaciones asociadas
 
@@ -595,38 +595,38 @@ Se conserva la numeración existente: CU-01 integra el acceso como parte de cons
 
 | Requisito | Origen | Caso de uso | Elemento del prototipo |
 |---|---|---|---|
-| RF-001 | DOC-APP | CU-01 | P-01 |
-| RF-002 | DOC-APP, DOC-VIS | CU-01 | P-01, P-09 |
-| RF-003 | DOC-VIS, DOC-API | CU-02 | P-03, P-08, P-09 |
-| RF-004 | DOC-VIS, DOC-APP | CU-01, CU-02, CU-03, CU-04, CU-06, CU-08, CU-11 | P-02 |
-| RF-005 | DOC-VIS, DOC-APP | CU-03 | P-02 |
-| RF-006 | DOC-VIS, DOC-API | CU-11 | P-02, P-09 |
-| RF-007 | DOC-APP, DOC-FW | CU-02 | P-03, P-05, P-08 |
-| RF-008 | DOC-VIS, DOC-FW | CU-05 | P-04, P-08 |
-| RF-009 | DOC-VIS, DOC-API | CU-05 | P-04, P-07, P-08 |
-| RF-010 | DOC-VIS, DOC-API | CU-04 | P-04, P-08, P-09 |
-| RF-011 | DOC-VIS, DOC-API | CU-04 | P-04, P-08, P-09 |
-| RF-012 | DOC-VIS, DOC-FW | CU-05 | P-08, banco hidráulico |
-| RF-013 | DOC-VIS, DOC-FW | CU-05 | P-08, banco hidráulico |
-| RF-014 | DOC-VIS, DOC-API | CU-06 | P-04, P-08, P-09 |
-| RF-015 | DOC-VIS, DOC-FW, DOC-APP | CU-07 | P-06, P-08 |
-| RF-016 | DOC-API, DOC-APP | CU-04, CU-06, CU-07 | P-04, P-06, P-09 |
-| RF-017 | DOC-VIS, DOC-APP | CU-08 | P-07 |
-| RF-018 | DOC-VIS, DOC-FW | CU-09 | P-05, P-08, recipiente graduado |
-| RF-019 | DOC-APP | CU-05, CU-06, CU-12 | P-10, aviso en el teléfono |
-| RF-020 | DOC-APP, DOC-API | CU-12 | P-10, aviso en el teléfono |
-| RF-021 | DOC-APP, SUP | CU-12 | P-10, aviso en el teléfono |
-| RF-022 | DOC-APP | CU-10 | P-05, P-10 |
-| RNF-REN-001 | DOC-VIS, SUP | CU-05 | P-08, medición en banco |
-| RNF-REN-002 | DOC-VIS, SUP | CU-08 | P-07, medición de tiempos |
-| RNF-SEG-001 | DOC-VIS, DOC-API, DOC-APP | CU-01, CU-02, CU-03, CU-04, CU-06, CU-07, CU-08, CU-09, CU-10, CU-11 | P-01 a P-07, P-09, pruebas de acceso |
-| RNF-SEG-002 | DOC-VIS, DOC-API, DOC-FW | CU-01, CU-02 | P-01, P-03, P-08, P-09, revisión de bitácoras |
-| RNF-USA-001 | DOC-VIS, SUP | CU-02 | P-03, prueba con usuarios |
-| RNF-CON-001 | DOC-VIS, DOC-FW, SUP | CU-05, CU-07 | P-06, P-08, ensayo sin red |
-| RNF-CON-002 | DOC-FW, SUP | CU-04, CU-05, CU-06, CU-07, CU-09 | P-08, ensayo de reinicios |
-| RNF-CON-003 | DOC-API, DOC-FW, SUP | CU-05, CU-06, CU-08, CU-12 | P-08, P-09, P-10, inyección de duplicados |
-| RNF-CON-004 | DOC-API | CU-01, CU-02, CU-03, CU-04, CU-06, CU-07, CU-08, CU-11, CU-12 | P-02, P-04, P-07, P-09, reportes fuera de orden |
-| RNF-CON-005 | DOC-VIS, DOC-FW, DOC-API | CU-05, CU-06, CU-07, CU-09 | P-08, banco hidráulico |
+| RF-001 | DOC-README | CU-01 | Registro, confirmación de correo e inicio de sesión |
+| RF-002 | DOC-README, DOC-VIS | CU-01 | Registro, confirmación de correo e inicio de sesión, Servicio remoto |
+| RF-003 | DOC-VIS, DOC-README | CU-02 | Alta de dispositivo, Controlador y sensor del prototipo físico, Servicio remoto |
+| RF-004 | DOC-VIS, DOC-README | CU-01, CU-02, CU-03, CU-04, CU-06, CU-08, CU-11 | Directorio de dispositivos |
+| RF-005 | DOC-VIS, DOC-README | CU-03 | Directorio de dispositivos |
+| RF-006 | DOC-VIS, DOC-README | CU-11 | Directorio de dispositivos, Servicio remoto |
+| RF-007 | DOC-README | CU-02 | Alta de dispositivo, Ajustes, Controlador y sensor del prototipo físico |
+| RF-008 | DOC-VIS, DOC-README | CU-05 | Monitor, Controlador y sensor del prototipo físico |
+| RF-009 | DOC-VIS, DOC-README | CU-05 | Monitor, Estadísticas, Controlador y sensor del prototipo físico |
+| RF-010 | DOC-VIS, DOC-README | CU-04 | Monitor, Controlador y sensor del prototipo físico, Servicio remoto |
+| RF-011 | DOC-VIS, DOC-README | CU-04 | Monitor, Controlador y sensor del prototipo físico, Servicio remoto |
+| RF-012 | DOC-VIS, DOC-README | CU-05 | Controlador y sensor del prototipo físico, banco hidráulico |
+| RF-013 | DOC-VIS, DOC-README | CU-05 | Controlador y sensor del prototipo físico, banco hidráulico |
+| RF-014 | DOC-VIS, DOC-README | CU-06 | Monitor, Controlador y sensor del prototipo físico, Servicio remoto |
+| RF-015 | DOC-VIS, DOC-README | CU-07 | Control local, Controlador y sensor del prototipo físico |
+| RF-016 | DOC-README | CU-04, CU-06, CU-07 | Monitor, Control local, Servicio remoto |
+| RF-017 | DOC-VIS, DOC-README | CU-08 | Estadísticas |
+| RF-018 | DOC-VIS, DOC-README | CU-09 | Ajustes, Controlador y sensor del prototipo físico, recipiente graduado |
+| RF-019 | DOC-README | CU-05, CU-06, CU-12 | Servicio de notificaciones y preferencias, aviso en el teléfono |
+| RF-020 | DOC-README | CU-12 | Servicio de notificaciones y preferencias, aviso en el teléfono |
+| RF-021 | DOC-README, DOC-ENTV | CU-12 | Servicio de notificaciones y preferencias, aviso en el teléfono |
+| RF-022 | DOC-README | CU-10 | Ajustes, Servicio de notificaciones y preferencias |
+| RNF-REN-001 | DOC-VIS, DOC-ENTV | CU-05 | Controlador y sensor del prototipo físico, medición en banco |
+| RNF-REN-002 | DOC-VIS, DOC-ENTV | CU-08 | Estadísticas, medición de tiempos |
+| RNF-SEG-001 | DOC-VIS, DOC-README | CU-01, CU-02, CU-03, CU-04, CU-06, CU-07, CU-08, CU-09, CU-10, CU-11 | Registro, confirmación de correo e inicio de sesión, Directorio de dispositivos, Alta de dispositivo, Monitor, Ajustes, Control local, Estadísticas, Servicio remoto, pruebas de acceso |
+| RNF-SEG-002 | DOC-VIS, DOC-README | CU-01, CU-02 | Registro, confirmación de correo e inicio de sesión, Alta de dispositivo, Controlador y sensor del prototipo físico, Servicio remoto, revisión de bitácoras |
+| RNF-USA-001 | DOC-VIS, DOC-ENTV | CU-02 | Alta de dispositivo, prueba con usuarios |
+| RNF-CON-001 | DOC-VIS, DOC-README, DOC-ENTV | CU-05, CU-07 | Control local, Controlador y sensor del prototipo físico, ensayo sin red |
+| RNF-CON-002 | DOC-README, DOC-ENTV | CU-04, CU-05, CU-06, CU-07, CU-09 | Controlador y sensor del prototipo físico, ensayo de reinicios |
+| RNF-CON-003 | DOC-README, DOC-ENTV | CU-05, CU-06, CU-08, CU-12 | Controlador y sensor del prototipo físico, Servicio remoto, Servicio de notificaciones y preferencias, inyección de duplicados |
+| RNF-CON-004 | DOC-README | CU-01, CU-02, CU-03, CU-04, CU-06, CU-07, CU-08, CU-11, CU-12 | Directorio de dispositivos, Monitor, Estadísticas, Servicio remoto, reportes fuera de orden |
+| RNF-CON-005 | DOC-VIS, DOC-README | CU-05, CU-06, CU-07, CU-09 | Controlador y sensor del prototipo físico, banco hidráulico |
 
 ## 7. Registro de cambios
 
@@ -634,4 +634,4 @@ Se conserva la numeración existente: CU-01 integra el acceso como parte de cons
 |---|---|---|---|
 | 2026-09-17 | RF-001 a RF-022; 10 RNF del apartado 4 | Versión 0.1: catálogo inicial, criterios de aceptación, métricas, 10 casos de uso y trazabilidad. Se mantienen las instrucciones y ejemplos originales separados del catálogo. | Documentar AwaLume con la estructura de la plantilla y las reglas de las guías, según la solicitud del autor. |
 | 2026-09-22 | CU-01 a CU-12 y trazabilidad | Versión 0.2: se adopta el formato de siete campos del PDF, se numeran los escenarios y sus alternativas, se concretan los objetivos y se separan la desasociación (CU-11) y la recepción de avisos (CU-12). Se actualizan las relaciones con RF y RNF; se conservan sus fichas y los ejemplos de la plantilla. | Ajustar los casos de uso al material de elicitación del curso solicitado por el autor. |
-
+| 2026-09-30 | Fuentes, contexto de usuarios y trazabilidad | Versión 0.4: se unifican las referencias técnicas bajo DOC-README, se utiliza DOC-ENTV para el origen de entrevista, se redacta el contexto de usuarios de forma afirmativa y se sustituyen las claves del prototipo por sus nombres. | Alinear la especificación con la documentación del repositorio de Ingeniería de Software I y facilitar la lectura de la trazabilidad. |
