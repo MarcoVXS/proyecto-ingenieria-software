@@ -81,3 +81,35 @@ Te enteras de algunas variaciones de consumo hasta que llega el recibo. Los mens
 
 Te preocupa pagar agua perdida, pero también interrumpir el suministro de quienes no tienen un problema. La falta de medición individual te impide sostener con datos que un inquilino específico fue responsable de un aumento. No tienes un valor fijo de litros o minutos que consideres adecuado para todos los edificios y situaciones.
 
+
+## 3. Respuestas de la entrevista
+
+*Respuestas simuladas en primera persona desde el papel del arrendador descrito en la ficha de dominio; no corresponden a una entrevista real.*
+
+### 1. ¿Cómo transcurre una jornada habitual tuya al administrar los departamentos, desde que empiezas hasta que terminas?
+
+Por la mañana reviso los mensajes de mis inquilinos y organizo pagos, visitas y reparaciones. Registro los gastos en una hoja de cálculo, guardo los recibos en carpetas y coordino el mantenimiento por teléfono; visito cada edificio dos veces por semana o antes si surge un pendiente.
+
+### 2. ¿Cómo se reparten las responsabilidades y las decisiones entre las personas que participan en la administración de los inmuebles?
+
+Yo me encargo de las rentas, los servicios y la coordinación con los inquilinos. Una persona de confianza me ayuda con las visitas y el plomero decide cómo realizar las reparaciones; para entrar a un departamento acuerdo el acceso con su ocupante.
+
+### 3. ¿Cómo revisaste el consumo de agua de tus inmuebles la última vez que lo hiciste, desde la información que consultaste hasta la conclusión a la que llegaste?
+
+Comparé los metros cúbicos del último recibo de cada edificio con el anterior y revisé mis notas de ocupación. Detecté diferencias entre periodos, pero no pude saber qué departamento consumió más porque solo tenemos un medidor general por edificio.
+
+### 4. ¿Qué hiciste ante el último reporte relacionado con el agua que recibiste de un inquilino, desde que te enteraste hasta que diste el asunto por terminado?
+
+Un inquilino me avisó que escuchaba correr agua en su sanitario. Coordiné la visita del plomero, quien cambió una pieza y comprobó que dejara de correr agua; di el asunto por terminado cuando el inquilino confirmó que el ruido había desaparecido.
+
+### 5. ¿Cómo se manejó el suministro de agua durante la última intervención de mantenimiento que atendiste en uno de tus inmuebles?
+
+En esa reparación, el plomero cerró únicamente la llave del sanitario y trabajó en esa zona. Los demás departamentos conservaron el suministro, sin necesidad de cerrar el agua de todo el edificio.
+
+### 6. ¿Qué ocurrió la última vez que el consumo de agua de un inmueble se apartó de lo que considerabas habitual?
+
+Hace dos meses aumentó el consumo de un edificio donde se habían ocupado dos departamentos y se habían limpiado las áreas comunes. Comparé los recibos y pedí una revisión al plomero, que no encontró fugas en las instalaciones accesibles; no pude atribuir el aumento a una sola causa.
+
+### 7. ¿Cómo atendiste la última incidencia de agua en la que no pudiste seguir tu manera habitual de resolver las cosas?
+
+Estaba fuera de la ciudad cuando un inquilino reportó agua en el pasillo; mi persona de apoyo no contestaba y el ocupante afectado tardó en responder. Coordiné por teléfono al plomero y el acceso, pero la reparación se demoró y no podía confirmar a distancia si la pérdida ya se había detenido.
