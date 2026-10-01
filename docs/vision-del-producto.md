@@ -1,8 +1,8 @@
 # Visión del producto
 
 **Autor: Marco Villegas Xanthakis
-Fecha de la última versión: 9/1/2026
-Repositorio: awalume
+Fecha de la última versión: 9/30/2026
+Repositorio: proyecto-ingenieria-software
 
 \---
 
@@ -121,19 +121,4 @@ Los requisitos cambiantes y las entregas frecuentes sí favorecen un enfoque ág
 Es una alternativa razonable por las consecuencias de un fallo en la válvula y por su énfasis en verificación, pero presupone requisitos estables y verificables desde el inicio. AwaLume aún modifica requisitos a partir de pruebas de hardware, restricciones de la nube y retroalimentación de uso, y el MVP no tiene una obligación de certificación formal definida. Se adoptará su disciplina de relacionar requisitos críticos con pruebas y evidencia, especialmente antes de una instalación real, pero no su secuencia como ciclo de vida principal en esta etapa.
 
 \---
-
-## Antes de entregar
-
-Reviso que el documento cumpla lo siguiente:
-
-* \[ ] La descripción del apartado 1 se entiende sin ser del área
-* \[ ] Hay al menos dos tipos de usuario con necesidades distintas
-* \[ ] Identifiqué un conflicto real entre usuarios
-* \[ ] El alcance dice qué queda fuera, no solo qué queda dentro
-* \[ ] Las exclusiones son específicas, no genéricas
-* \[ ] Identifiqué el tipo de sistema y al menos dos atributos de calidad
-* \[ ] Anoté al menos tres reglas de negocio no obvias
-* \[ ] Justifiqué el ciclo de vida contra dos alternativas descartadas
-* \[ ] El documento está en mi repositorio y se puede leer desde el navegador
-* \[ ] Borré todas las instrucciones en cursiva de la plantilla
 
