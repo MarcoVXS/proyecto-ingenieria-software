@@ -1,12 +1,10 @@
 # Especificación de requisitos
 
-**Sistema:** AwaLume
-
-**Autor:** Marco Villegas Xanthakis
-
-**Versión:** 0.4
-
-**Fecha de la última actualización:** 2026-09-30
+* Sistema: AwaLume
+* Autor: Marco Villegas Xanthakis
+* Versión: 0.4
+* Fecha de la última actualización: 2026-09-30
+* Fecha de la última revisión por dupla: 9/30/2026
 
 ## 1. Propósito y alcance
 
