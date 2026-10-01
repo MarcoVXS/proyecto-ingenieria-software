@@ -1,8 +1,9 @@
 # Visión del producto
 
 **Autor: Marco Villegas Xanthakis
-Fecha de la última versión: 9/30/2026
-Repositorio: proyecto-ingenieria-software
+**Fecha de la última versión: 9/30/2026
+**Repositorio: proyecto-ingenieria-software
+**Fecha de la última revisión por dupla: 9/30/2026
 
 \---
 
@@ -119,6 +120,5 @@ Los requisitos cambiantes y las entregas frecuentes sí favorecen un enfoque ág
 **Alternativa 2:** Modelo V.
 
 Es una alternativa razonable por las consecuencias de un fallo en la válvula y por su énfasis en verificación, pero presupone requisitos estables y verificables desde el inicio. AwaLume aún modifica requisitos a partir de pruebas de hardware, restricciones de la nube y retroalimentación de uso, y el MVP no tiene una obligación de certificación formal definida. Se adoptará su disciplina de relacionar requisitos críticos con pruebas y evidencia, especialmente antes de una instalación real, pero no su secuencia como ciclo de vida principal en esta etapa.
-
 \---
 
