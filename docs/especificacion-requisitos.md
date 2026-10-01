@@ -22,9 +22,9 @@
 
 | Clave | Fuente | Uso y estado |
 |---|---|---|
-| DOC-VIS | [Visión del producto](vision-del-producto.md) | Documento del proyecto revisado el 2026-09-29; base del alcance y de las reglas de negocio. |
-| DOC-GUION | [Guión de entrevista](guion-entrevista.md) | Entrevista realizada a la dupla para entender mejor al usuario, revisada el 2026-09-29. |
-| DOC-DGM-CU | [Diagrama casos de uso](/diagramas/casos-de-uso.png) | Diagrama visual de los casos de uso documentados, generado el 2026-09-29. |
+| DOC-VIS | [Visión del producto](vision-del-producto.md) | Base del alcance y de las reglas de negocio, revisado el 2026-09-30. |
+| DOC-ENTV | [Guión de entrevista](guion-entrevista.md) | Entrevista realizada a la dupla para entender mejor al usuario, revisada el 2026-09-29. |
+| DOC-README | [README](../README.md) | Documento README con resumen de todo el sistema, actualizado el 2026-09-30. |
 
 ## 2. Usuarios y su contexto
 
