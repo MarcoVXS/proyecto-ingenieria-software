@@ -10,7 +10,7 @@ AwaLume es desarrollado por una persona, Marco Villegas Xanthakis. Combina una a
 
 El [README](../../README.md) describe Flutter, ESP32 y servicios administrados de AWS, con varias funciones Lambda y stacks. La elección arquitectónica concierne a la organización y entrega del núcleo de negocio central, no a convertir la app, el firmware y la base de datos en un único proceso ni a afirmar que el despliegue actual ya está consolidado.
 
-La [especificación](../../docs/especificacion-requisitos.md) exige autorización por asociación (RNF-SEG-001), protección sin conexión remota (RNF-CON-001) y prioridad de los bloqueos locales sobre órdenes de apertura (RNF-CON-005). No se dispone de una medición que justifique escalar cada módulo central por separado. Las 10 cuentas simultáneas de RNF-REN-002 son una carga de prueba, no una cantidad comprobada de clientes.
+La [especificación](../especificacion-requisitos.md) exige autorización por asociación (RNF-SEG-001), protección sin conexión remota (RNF-CON-001) y prioridad de los bloqueos locales sobre órdenes de apertura (RNF-CON-005). No se dispone de una medición que justifique escalar cada módulo central por separado. Las 10 cuentas simultáneas de RNF-REN-002 son una carga de prueba, no una cantidad comprobada de clientes.
 
 Se consideraron un monolito sin fronteras internas explícitas, que facilita atajos y mezcla de reglas, y microservicios, que permitirían despliegues independientes a costa de más contratos de red, observabilidad y coordinación para una sola persona.
 

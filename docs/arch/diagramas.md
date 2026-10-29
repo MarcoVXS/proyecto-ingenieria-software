@@ -8,7 +8,7 @@
 
 Estos tres niveles describen el diseño académico acordado en la Actividad 2: **monolito modular para el servicio central**, con aplicación móvil y firmware independientes. La decisión y sus costos están en [ADR-001](adr-001-monolito-modular-para-el-servicio-central.md).
 
-Las tecnologías y restricciones provienen del [README](../../README.md), la [visión del producto](../../docs/vision-del-producto.md) y la [especificación de requisitos](../../docs/especificacion-requisitos.md). Los diagramas no certifican una implementación ni pruebas superadas. El README describe varias funciones Lambda y stacks de infraestructura; aquí se representa el diseño objetivo de los cuatro módulos centrales bajo una unidad de entrega, no una función o microservicio independiente por módulo. No se modifica la infraestructura existente con esta entrega.
+Las tecnologías y restricciones provienen del [README](../../README.md), la [visión del producto](../vision-del-producto.md) y la [especificación de requisitos](../especificacion-requisitos.md). Los diagramas no certifican una implementación ni pruebas superadas. El README describe varias funciones Lambda y stacks de infraestructura; aquí se representa el diseño objetivo de los cuatro módulos centrales bajo una unidad de entrega, no una función o microservicio independiente por módulo. No se modifica la infraestructura existente con esta entrega.
 
 ## 1. Nivel 1: contexto
 
