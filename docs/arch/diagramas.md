@@ -14,7 +14,7 @@ Las tecnologías y restricciones provienen del [README](../../README.md), la [vi
 
 AwaLume incluye el dispositivo, la aplicación y el servicio central. Los servicios de identidad y entrega de avisos son sistemas externos administrados por proveedores. Este nivel no muestra tecnologías ni componentes internos.
 
-flowchart LR
+    flowchart LR
     propietario(["Propietario de vivienda"])
     arrendador(["Arrendador de departamentos"])
     sistema["AwaLume: monitoreo y control de agua"]
@@ -56,7 +56,7 @@ flowchart LR
 
 Se muestran las unidades de ejecución y almacenamiento, junto con los servicios de infraestructura necesarios para comunicarlas. Los cuatro módulos del servidor no se despliegan como cuatro microservicios. Los servicios administrados externos tampoco son módulos propios.
 
-flowchart TB
+    flowchart TB
     usuario(["Propietario o arrendador"])
     identidad["Identidad externa: Amazon Cognito"]
     avisos["Entrega externa de avisos: Amazon SNS y APNs"]
@@ -131,7 +131,7 @@ flowchart TB
 
 Este nivel amplía únicamente el contenedor **Servicio central**. Conserva los cuatro módulos de la Actividad 2. Sus responsabilidades son las del lado remoto; las reglas de cierre físico también residen, de forma autónoma, en el firmware y no se trasladan a la nube.
 
-flowchart TB
+    flowchart TB
     entrada["API Gateway: solicitudes de la app"]
     enlace["AWS IoT Core: telemetría y comandos"]
     datos[("Amazon DynamoDB")]
