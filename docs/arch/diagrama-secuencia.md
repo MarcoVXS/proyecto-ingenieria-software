@@ -1,7 +1,5 @@
 # Diagrama de secuencia de AwaLume
 
-**Actividad:** El diagrama de secuencia · SIS3407
-
 **Autor:** Marco Villegas Xanthakis
 
 **Fecha:** 16 de noviembre de 2026
@@ -10,15 +8,49 @@
 
 **CU-05: Limitar una pérdida de agua automáticamente**, descrito en la [especificación de requisitos](../especificacion-requisitos.md). Es el caso principal porque la utilidad de las estadísticas y los avisos no sustituye la protección local frente a un consumo excesivo.
 
-Se representa una iteración del firmware: obtiene una lectura, evalúa las dos protecciones y cierra la válvula al superar un límite. El flujo alternativo es **la falta de comunicación remota**, que no debe impedir el cierre. Corresponde al alterno 3a de CU-05 y a RNF-CON-001.
+Se representa una iteración del firmware: obtiene una lectura, evalúa las dos protecciones y cierra la válvula al superar un límite. El flujo alternativo es la falta de comunicación remota, que no debe impedir el cierre. Corresponde al alterno 3a de CU-05 y a RNF-CON-001.
 
 **Condiciones del escenario:** hay energía, sensor y actuador operativos; la lectura es válida; la protección diaria está habilitada en 1,000 L y se registran 1,005 L. La protección de tiempo está habilitada en 30 minutos y la lectura indica 10 minutos continuos. Por tanto, la primera devuelve verdadero y la segunda falso. La válvula comienza abierta.
 
 El cierre actúa sobre el paso por el dispositivo, instalado antes de la cisterna. No detiene la salida del agua ya almacenada ni garantiza protección durante una pérdida total de energía.
 
-## Código para Mermaid Live
+## Código Mermaid Live
 
-Copiar el contenido del bloque, desde `sequenceDiagram`, en Mermaid Live. Incluye barras de activación, respuestas punteadas, una comunicación asíncrona y un solo fragmento `alt`.
+    sequenceDiagram
+    participant D as dispositivo: Dispositivo
+    participant S as sensor: SensorFlujo
+    participant PV as porVolumen: ProteccionPorVolumen
+    participant PT as porTiempo: ProteccionPorTiempo
+    participant V as valvula: Valvula
+    participant C as comunicacion: ComunicacionDispositivo
+
+    Note over D,S: Iteracion local con lectura valida y limite diario superado
+    activate D
+    D->>+S: obtenerLectura()
+    S-->>-D: lectura (1005 L diarios, 10 min continuos)
+    D->>D: registrarLectura(lectura)
+    D->>D: evaluarProtecciones(lectura)
+    D->>+PV: debeCerrar(lectura)
+    PV-->>-D: true
+    D->>+PT: debeCerrar(lectura)
+    PT-->>-D: false
+    Note over D,PT: Cualquiera de las dos puede exigir el cierre
+    D->>+V: activarBloqueo()
+    V-->>-D: bloqueo activo
+    D->>+V: cerrar()
+    V-->>-D: accion local de cierre ejecutada
+    Note over D,V: El cierre no espera a Internet ni a la app
+    D->>+C: estaDisponible()
+    C-->>-D: disponibilidad remota
+    alt Comunicacion disponible
+        D-)C: publicarCierre(idDispositivo, motivo)
+        activate C
+        Note right of C: Envio asincrono del evento de cierre por consumo
+        deactivate C
+    else Sin Internet o servicio remoto inaccesible
+        Note over D,V: No se envia el reporte y se conserva el cierre y el bloqueo
+    end
+    deactivate D
 
 ```mermaid
 sequenceDiagram
@@ -66,8 +98,6 @@ La respuesta de `cerrar()` indica la ejecución de la acción de control; no sup
 
 ## Regla de oro: revisión mensaje por mensaje
 
-La referencia es el diagrama de clases trabajado previamente y el análisis de clases de AwaLume. Se distingue lo existente en ese modelo de las incorporaciones que este ejercicio revela; no se afirma que esas clases estén implementadas en el código.
-
 | Mensaje | Clase receptora | Operación y comprobación |
 |---|---|---|
 | `obtenerLectura()` | SensorFlujo | Ya figuraba: `+obtenerLectura() Lectura`. Su contrato debe entregar una instantánea coherente, incluidos los acumulados que usa la protección. |
@@ -77,10 +107,8 @@ La referencia es el diagrama de clases trabajado previamente y el análisis de c
 | `debeCerrar(lectura)` | ProteccionPorTiempo | Ya figuraba: `+debeCerrar(l: Lectura) bool`. Compara la duración continua con su límite habilitado. |
 | `activarBloqueo()` | Valvula | Ya figuraba: `+activarBloqueo() void`. Impide abrir mientras permanezca la causa de protección. |
 | `cerrar()` | Valvula | Ya figuraba: `+cerrar() void`. Ejecuta el cierre local. |
-| `estaDisponible()` | ComunicacionDispositivo | **Faltaba:** `+estaDisponible() bool`. Se añade como consulta al adaptador de comunicación; es una instantánea, no garantía de entrega posterior. |
-| `publicarCierre(idDispositivo, motivo)` | ComunicacionDispositivo | **Faltaba:** `+publicarCierre(idDispositivo: String, motivo: String) void`. Se invoca de forma asíncrona y no condiciona la protección local. |
-
-Las respuestas punteadas son retornos de esas operaciones, no métodos adicionales. Las notas describen condiciones del escenario y tampoco requieren operaciones.
+| `estaDisponible()` | ComunicacionDispositivo | `+estaDisponible() bool`. Se añade como consulta al adaptador de comunicación. |
+| `publicarCierre(idDispositivo, motivo)` | ComunicacionDispositivo | `+publicarCierre(idDispositivo: String, motivo: String) void`. Se invoca de forma asíncrona y no condiciona la protección local. |
 
 ## Qué le faltaba al diagrama de clases
 
