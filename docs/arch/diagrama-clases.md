@@ -8,7 +8,120 @@ Modelo de diseño que integra las correcciones identificadas al construir el [di
 
 ## Código Mermaid
 
-Copiar el contenido del bloque en Mermaid Live. Los atributos incluyen tipo y visibilidad; las asociaciones y la composición incluyen multiplicidades en ambos extremos. La generalización no lleva multiplicidades.
+    classDiagram
+    direction TB
+
+    class Cuenta {
+        -id: String
+        -correo: String
+        -categoriasAvisosHabilitadas: Set~String~
+        +vincular(d: Dispositivo, alias: String) Asociacion
+        +desvincular(a: Asociacion) void
+        +configurarAvisos(categoria: String, activa: bool) void
+    }
+
+    class Asociacion {
+        -alias: String
+        +cambiarAlias(alias: String) void
+    }
+
+    class Dispositivo {
+        -thingName: String
+        -enLinea: bool
+        -ultimoReporte: datetime
+        +registrarLectura(l: Lectura) void
+        +evaluarProtecciones(l: Lectura) bool
+        +ejecutarOrden(o: OrdenControl) bool
+    }
+
+    class SensorFlujo {
+        -factorCalibracion: float
+        -litrosAcumuladosDia: float
+        -minutosContinuos: float
+        -fechaLocal: Date
+        +contarPulsos() int
+        +obtenerLectura() Lectura
+        -actualizarAcumulados(pulsos: int, instante: datetime) void
+    }
+
+    class Lectura {
+        -fechaHora: datetime
+        -flujoLitrosMinuto: float
+        -litrosAcumuladosDia: float
+        -minutosContinuos: float
+        +esValida() bool
+    }
+
+    class Valvula {
+        -abierta: bool
+        -bloqueoProteccion: bool
+        +abrir() bool
+        +cerrar() void
+        +activarBloqueo() void
+    }
+
+    class OrdenControl {
+        -id: String
+        -accion: String
+        -estado: String
+        -fechaVencimiento: datetime
+        +estaVigente(ahora: datetime) bool
+        +confirmar() void
+        +rechazar(motivo: String) void
+    }
+
+    class Proteccion {
+        <<abstract>>
+        #habilitada: bool
+        +habilitar() void
+        +deshabilitar() void
+        +debeCerrar(l: Lectura) bool*
+    }
+
+    class ProteccionPorVolumen {
+        -limiteLitrosDiarios: float
+        +configurarLimite(litros: float) void
+        +debeCerrar(l: Lectura) bool
+    }
+
+    class ProteccionPorTiempo {
+        -limiteMinutosContinuos: float
+        +configurarLimite(minutos: float) void
+        +debeCerrar(l: Lectura) bool
+    }
+
+    class Notificacion {
+        -categoria: String
+        -mensaje: String
+        -fechaCreacion: datetime
+        -estadoEntrega: String
+        +marcarEnviada() void
+        +registrarFallo(motivo: String) void
+    }
+
+    class ComunicacionDispositivo {
+        -disponible: bool
+        +estaDisponible() bool
+        +publicarCierre(idDispositivo: String, motivo: String) void
+    }
+
+    Cuenta "1" -- "0..*" Asociacion : mantiene
+    Asociacion "0..*" --> "1" Dispositivo : vincula
+    Cuenta "0..1" -- "0..*" OrdenControl : solicita
+    OrdenControl "0..*" --> "1" Dispositivo : dirigida a
+    Cuenta "1" -- "0..*" Notificacion : recibe
+    Dispositivo "1" -- "0..*" Notificacion : origina
+    Dispositivo "1" -- "1" SensorFlujo : utiliza
+    Dispositivo "1" -- "0..*" Lectura : registra
+    Dispositivo "1" -- "1" Valvula : controla
+    Dispositivo "1" *-- "2" Proteccion : posee
+    Dispositivo "1" --> "1" ComunicacionDispositivo : comunica eventos
+    Proteccion <|-- ProteccionPorVolumen
+    Proteccion <|-- ProteccionPorTiempo
+
+    note for Asociacion "Unica por cuenta y dispositivo. El alias es personal."
+    note for Proteccion "{abstract} Una por volumen y una por tiempo. Exclusivas del dispositivo."
+    note for Dispositivo "Evalua ambas protecciones localmente. Cualquiera puede exigir el cierre."
 
 ```mermaid
 classDiagram
